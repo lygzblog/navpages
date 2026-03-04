@@ -1,0 +1,8 @@
+{
+  "name": "平头哥资源导航页",
+  "installCommand": "npm install",
+  "assets": {
+    "directory": "./dist",
+    "notFoundStrategy": "singlePageApplication",
+  },
+}
