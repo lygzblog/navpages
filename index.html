@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每天60秒读懂世界-羚羊公子博客</title>
+    <style>
+        /* 定义字体 */
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('./字魂扁桃体.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --lygz-bg-color: #fcfcfc;
+            --lygz-card-bg: #ffffff;
+            --lygz-text-main: #2f2f2f;
+            --lygz-text-secondary: #d1d1d1;
+            --lygz-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --lygz-highlight-color: #d9863d;
+            --lygz-accent-color: #e0ac69;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--lygz-bg-color);
+            line-height: 1.6;
+        }
+
+        .article {
+            padding: 6px !important;
+        }
+
+        .lygz_container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            /* box-shadow: var(--lygz-shadow); */
+        }
+
+        /* 头部样式 */
+        .lygz_header-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            background: -webkit-linear-gradient(127deg, #d51f0b, #009ce8);
+            background: linear-gradient(127deg, #d51f0b, #009ce8);
+            min-height: 140px;
+            border-radius: 6px;
+        }
+
+        .lygz_left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 25px;
+            flex: 1;
+        }
+
+        .lygz_title {
+            font-size: clamp(28px, 5vw, 38px);
+            font-weight: 500;
+            color: #f3f3f3;
+            white-space: nowrap;
+        }
+
+        .lygz_title .lygz_highlight {
+            color: var(--lygz-highlight-color);
+            font-weight: 700;
+            font-style: italic;
+            margin: 0 4px;
+        }
+
+        .lygz_subtitle {
+            font-size: 14px;
+            color: var(--lygz-text-secondary);
+            margin-top: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+        }
+
+        .lygz_subtitle .lygz_separator-icon {
+            color: var(--lygz-accent-color);
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .lygz_divider {
+            width: 1.5px;
+            align-self: stretch;
+            background-color: #c8c8c887;
+            margin: 0 15px;
+        }
+
+        .lygz_right-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lygz_weekday {
+            font-size: clamp(48px, 10vw, 72px);
+            font-weight: 700;
+            color: #f3f3f3;
+            letter-spacing: 8px;
+            line-height: 1;
+        }
+
+        /* 新闻卡片样式 */
+        .lygz_loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--lygz-text-secondary);
+        }
+
+        .lygz_spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--lygz-highlight-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: lygz_spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes lygz_spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .lygz_news-card {
+            background: var(--lygz-card-bg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+
+        }
+
+        .lygz_news-list {
+            list-style: none;
+            margin: 0;
+            /* 强制清除外边距 */
+            padding: 0;
+            /* 强制清除内边距 */
+        }
+
+
+        .lygz_news-item {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .lygz_news-item:last-child {
+            border-bottom: none;
+        }
+
+        .lygz_news-index {
+            background-color: #585858;
+            color: #ffffff;
+            font-weight: bold;
+            min-width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .lygz_news-content {
+            font-size: 14px;
+            color: var(--lygz-text-main);
+            flex: 1;
+            text-align: justify;
+        }
+
+        .lygz_tip-section {
+            background-color: #464646;
+            padding: 10px;
+            text-align: center;
+            font-style: italic;
+            color: #b1b1b1;
+            font-size: 12px;
+        }
+
+        .lygz_footer-note {
+            text-align: center;
+            color: #b1b1b1;
+            font-size: 12px;
+            margin-top: 16px;
+            line-height: 1.8;
+            margin-bottom: 6px;
+        }
+
+        .lygz_auth_news {
+            font-size: 14px;
+        }
+
+        .lygz_empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--lygz-text-secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .lygz_header-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+                padding: 16px 10px;
+            }
+
+            .lygz_left-panel {
+                padding-right: 0;
+                align-items: center;
+            }
+
+            .lygz_divider {
+                width: 90%;
+                height: 1.5px;
+                margin: 10px auto;
+            }
+
+            .lygz_subtitle {
+                font-size: 12px;
+                white-space: normal;
+                text-align: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .lygz_news-content {
+                font-size: 12px;
+                color: var(--lygz-text-main);
+                flex: 1;
+                font-weight: bold;
+                text-align: justify;
+            }
+
+            .lygz_weekday {
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lygz_container">
+        <!-- 头部卡片 -->
+        <header class="lygz_header-card">
+            <div class="lygz_left-panel">
+                <div class="lygz_title">
+                    每天<span class="lygz_highlight">60s</span>读懂世界
+                </div>
+                <!-- 这里的数据将由 JS 填充 -->
+                <div class="lygz_subtitle">
+                    <span id="dateText">加载中...</span>
+                    <span class="lygz_separator-icon">*</span>
+                    <span id="lunarText">加载中...</span>
+                </div>
+            </div>
+            <div class="lygz_divider"></div>
+            <div class="lygz_right-panel">
+                <div class="lygz_weekday" id="dayOfWeek">
+                    加载中
+                </div>
+            </div>
+        </header>
+
+        <div id="lygz_app">
+            <div class="lygz_loading">
+                <div class="lygz_spinner"></div>
+                <p>正在加载今日早报...</p>
+            </div>
+        </div>
+
+        <div class="lygz_tip-section" id="tipSection">
+            低头不是认输，是要看清自己的路，仰头不是骄傲，是要看见自己的天空
+        </div>
+
+        <div class="lygz_footer-note" id="footerNote">
+            <span>新闻联播 / 人民日报 / 新华网 / 腾讯新闻 / 环球网 / 澎湃新闻</span>
+            <br>
+            <span>共 0 条国内外精选新闻 / 更新于 --:--</span>
+            <br>
+            <span>@GitHub vikitop/60s</span>
+        </div>
+    </div>
+
+    <script>
+        const API_URLS = [
+            'https://60s.7se.cn/v2/60s',
+            'http://60api.09cdn.xyz/v2/60s',
+            'https://60s.mizhoubaobei.top/v2/60s'
+        ];
+
+        let currentApiIndex = 0;
+        let retryCount = 0;
+        const MAX_RETRIES = 3;
+
+        async function fetchWithRetry() {
+            const url = API_URLS[currentApiIndex];
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(`接口 ${url} 请求失败，状态码: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if (data.code !== 200) {
+                throw new Error(data.message || `接口 ${url} 返回错误: ${data.message}`);
+            }
+
+            if (!data.data) {
+                throw new Error(`接口 ${url} 缺少数据内容`);
+            }
+
+            return data.data;
+        }
+
+        // 格式化日期函数：将 20230125 或 2026-01-25 转换为 2026年1月25日
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            // 移除所有非数字字符
+            const cleanDate = dateStr.replace(/\D/g, '');
+
+            // 如果是8位数字 (YYYYMMDD)
+            if (cleanDate.length === 8) {
+                const year = cleanDate.substring(0, 4);
+                const month = cleanDate.substring(4, 6);
+                const day = cleanDate.substring(6, 8);
+                // 去掉月份和日期的前导零 (例如 01 -> 1)
+                return `${year}年${parseInt(month)}月${parseInt(day)}日`;
+            }
+
+            // 尝试作为标准日期对象解析
+            const dateObj = new Date(dateStr);
+            if (!isNaN(dateObj.getTime())) {
+                return `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
+            }
+
+            return dateStr; // 如果都无法解析，返回原字符串
+        }
+
+        async function fetchZaobao() {
+            const app = document.getElementById('lygz_app');
+            const dateText = document.getElementById('dateText');
+            const dayOfWeek = document.getElementById('dayOfWeek');
+            const lunarText = document.getElementById('lunarText');
+            const tipSection = document.getElementById('tipSection');
+            const footerNote = document.getElementById('footerNote');
+
+            app.innerHTML = `<div class="lygz_loading"><div class="lygz_spinner"></div><p>正在加载今日早报...</p></div>`;
+            dateText.textContent = '加载中...';
+            dayOfWeek.textContent = '--';
+            lunarText.textContent = '加载中...';
+
+            retryCount = 0;
+            while (retryCount <= MAX_RETRIES) {
+                try {
+                    const data = await fetchWithRetry();
+                    renderZaobao(data);
+                    return;
+                } catch (error) {
+                    retryCount++;
+                    console.warn(`加载失败，第 ${retryCount} 次重试...`, error.message);
+
+                    if (retryCount <= MAX_RETRIES) {
+                        currentApiIndex = (currentApiIndex + 1) % API_URLS.length;
+                        console.log(`切换到下一个接口: ${API_URLS[currentApiIndex]}`);
+                    }
+
+                    if (retryCount > MAX_RETRIES) {
+                        renderEmptyState();
+                        return;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                }
+            }
+        }
+
+        function renderEmptyState() {
+            const app = document.getElementById('lygz_app');
+            const dateText = document.getElementById('dateText');
+            const dayOfWeek = document.getElementById('dayOfWeek');
+            const lunarText = document.getElementById('lunarText');
+            const tipSection = document.getElementById('tipSection');
+            const footerNote = document.getElementById('footerNote');
+
+            dateText.textContent = '数据获取失败';
+            dayOfWeek.textContent = '---';
+            lunarText.textContent = '---';
+            tipSection.textContent = '暂无内容';
+            footerNote.innerHTML = '数据加载失败';
+            app.innerHTML = `<div class="lygz_empty-state">暂无早报内容</div>`;
+        }
+
+        function renderZaobao(data) {
+            const app = document.getElementById('lygz_app');
+            const dateText = document.getElementById('dateText');
+            const dayOfWeek = document.getElementById('dayOfWeek');
+            const lunarText = document.getElementById('lunarText');
+            const tipSection = document.getElementById('tipSection');
+            const footerNote = document.getElementById('footerNote');
+
+            // 1. 设置日期 (从接口获取)
+            // 接口通常返回类似 "20230125" 或 "2026-01-25"，这里进行格式化
+            dateText.textContent = formatDate(data.date);
+
+            // 2. 设置星期 (从接口获取)
+            // 接口通常返回 "星期日"
+            dayOfWeek.textContent = data.day_of_week || '';
+
+            // 3. 设置农历 (从接口获取)
+            // 接口通常返回 "正月初七" 或 "正月十五"
+            // 拼接 "农历·" 前缀
+            if (data.lunar_date) {
+                lunarText.textContent = `农历·${data.lunar_date}`;
+            } else {
+                // 如果接口没有返回农历，显示未知或根据年份推断（这里显示为接口无数据）
+                lunarText.textContent = '农历·(接口未返回)';
+            }
+
+            // 更新引用语
+            tipSection.textContent = data.tip || '低头不是认输，是要看清自己的路，仰头不是骄傲，是要看见自己的天空';
+
+            // 更新新闻列表
+            const items = Array.isArray(data.news) ? data.news : [];
+            if (items.length === 0) {
+                app.innerHTML = `<div class="lygz_empty-state">暂无早报内容</div>`;
+                return;
+            }
+
+            const listHtml = items.map((item, index) => {
+                const cleanText = String(item).replace(/^\d+、/, '').trim();
+                return `
+                    <div class="lygz_news-item">
+                        <span class="lygz_news-index">${index + 1}</span>
+                        <span class="lygz_news-content">${cleanText}</span>
+                    </div>
+                `;
+            }).join('');
+
+            app.innerHTML = `<div class="lygz_news-card"><div class="lygz_news-list">${listHtml}</div></div>`;
+
+            // 更新底部信息
+            const created = data.created || '';
+            footerNote.innerHTML = `
+                <span>新闻联播 / 人民日报 / 新华网 / 腾讯新闻 / 环球网 / 澎湃新闻</span>
+                <br>
+                <span>共 ${items.length} 条国内外精选新闻 / 更新于 ${created}</span>
+                <br>
+                <span class="lygz_auth_news">来自羚羊公子博客-每日新闻</span>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchZaobao);
+    </script>
+</body>
+
+</html>
