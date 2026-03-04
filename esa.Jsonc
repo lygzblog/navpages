@@ -5,4 +5,5 @@
     "directory": "./dist",
     "notFoundStrategy": "singlePageApplication",
   },
+  "entry": "./src/index.js"
 }
