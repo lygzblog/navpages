@@ -1,0 +1,9 @@
+/* 全局重置（由 normalize.css 处理大部分，这里只补充） */
+
+/* 应用容器 */
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
