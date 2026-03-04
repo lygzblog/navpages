@@ -1,5 +1,5 @@
 {
-  "name": "平头哥资源导航页",
+  "name": "平头哥资源导航",
   "installCommand": "npm install",
   "assets": {
     "directory": "./dist",
