@@ -23,10 +23,7 @@
           <p>针对手机卡话费贵、流量不足等问题，推荐稳定可靠的手机卡，根据需求自行选择。</p>
           <div class="btn-group">
             <a href="http://yc.hk11w.cn/index?k=NGJRZHdWRXBlTjQ9" target="_blank" class="btn">流量卡推荐一</a>
-            <a href="https://h5.lot-ml.com/ProductEn/Index/843935c346f858ba" target="_blank" class="btn"
-              >流量卡推荐二</a
-            >
-            <a href="https://h5.gantanhao.com/url?value=Emnnu1760771051949" target="_blank" class="btn">流量卡推荐三</a>
+            <a href="https://h5.gantanhao.com/url?value=Emnnu1760771051949" target="_blank" class="btn">流量卡推荐二</a>
           </div>
         </div>
 
